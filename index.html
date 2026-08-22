@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Binance Exchange</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,
+    "Helvetica Neue",Arial,sans-serif;
+    background:#ededed;
+    color:#161616;
+    overflow:hidden;
+}
+
+button{
+    font-family:inherit;
+    cursor:pointer;
+}
+
+/* PHONE */
+
+.phone-container{
+    width:375px;
+    height:812px;
+    margin:20px auto;
+    background:#fff;
+    border:10px solid #191919;
+    border-radius:40px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+/* STATUS BAR */
+
+.status-bar{
+    height:31px;
+    padding:5px 15px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+    font-size:12px;
+    font-weight:600;
+}
+
+.status-right{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.signal{
+    display:flex;
+    gap:2px;
+    align-items:flex-end;
+}
+
+.signal span{
+    width:3px;
+    background:#111;
+    border-radius:2px;
+}
+
+.signal span:nth-child(1){height:4px}
+.signal span:nth-child(2){height:6px}
+.signal span:nth-child(3){height:8px}
+.signal span:nth-child(4){height:10px}
+
+/* MAIN */
+
+.main-content{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    background:#f7f7f7;
+}
+
+.main-content::-webkit-scrollbar{
+    width:0;
+}
+
+/* HEADER */
+
+.header{
+    height:67px;
+    padding:8px 13px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#fff;
+}
+
+.header-left,
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.header-btn{
+    border:0;
+    background:transparent;
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Binance official PNG */
+
+.binance-logo{
+    width:29px;
+    height:29px;
+    object-fit:contain;
+    display:block;
+}
+
+/* MENU */
+
+.menu{
+    width:28px;
+}
+
+.menu span{
+    display:block;
+    height:3px;
+    margin:5px 0;
+    background:#111;
+    border-radius:5px;
+}
+
+/* HEADPHONE */
+
+.headphone{
+    width:25px;
+    height:25px;
+    border:3px solid #111;
+    border-bottom:0;
+    border-radius:15px 15px 0 0;
+    position:relative;
+}
+
+.headphone:before,
+.headphone:after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:10px;
+    background:#111;
+    top:10px;
+    border-radius:4px;
+}
+
+.headphone:before{
+    left:-5px;
+}
+
+.headphone:after{
+    right:-5px;
+}
+
+/* EXCHANGE WALLET */
+
+.nav-tabs{
+    background:#f1f1f1;
+    padding:4px;
+    border-radius:14px;
+    display:flex;
+}
+
+.nav-tab{
+    border:0;
+    background:transparent;
+    padding:8px 13px;
+    border-radius:10px;
+    font-size:16px;
+    color:#999;
+}
+
+.nav-tab.active{
+    background:#fff;
+    color:#111;
+    font-weight:600;
+    box-shadow:0 1px 5px rgba(0,0,0,.06);
+}
+
+/* TOP ICON */
+
+.header-symbol{
+    font-size:26px;
+    line-height:1;
+}
+
+.notification{
+    position:relative;
+}
+
+.badge{
+    position:absolute;
+    top:-3px;
+    right:-3px;
+    min-width:18px;
+    height:18px;
+    padding:0 4px;
+    border-radius:50%;
+    background:#f5c400;
+    font-size:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:700;
+}
+
+/* SEARCH */
+
+.search-container{
+    padding:8px 15px 13px;
+    background:#fff;
+}
+
+.search-bar{
+    height:45px;
+    border-radius:12px;
+    background:#f5f5f5;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    gap:8px;
+}
+
+.search-icon{
+    font-size:27px;
+    color:#999;
+    line-height:1;
+}
+
+.fire{
+    font-size:19px;
+}
+
+.search-input{
+    flex:1;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#888;
+    font-size:15px;
+}
+
+.scan{
+    color:#888;
+    font-size:23px;
+}
+
+/* VALUE */
+
+.value-section{
+    background:#fff;
+    padding:14px 16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.value-label{
+    font-size:16px;
+}
+
+.value-arrow{
+    margin-left:4px;
+    font-size:17px;
+}
+
+.add-funds{
+    border:0;
+    background:#fcd535;
+    color:#111;
+    padding:12px 17px;
+    border-radius:7px;
+    font-size:15px;
+    font-weight:700;
+    text-decoration:underline;
+}
+
+/* QUICK ACTIONS */
+
+.quick-actions{
+    background:#fff;
+    padding:7px 13px 18px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+}
+
+.action{
+    border:0;
+    background:transparent;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    color:#555;
+    font-size:13px;
+}
+
+.action-box{
+    width:66px;
+    height:66px;
+    background:#fff;
+    border-radius:16px;
+    border:1px solid #f1f1f1;
+    box-shadow:0 2px 10px rgba(0,0,0,.04);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.action-svg{
+    width:34px;
+    height:34px;
+}
+
+/* PLAY CARD */
+
+.card{
+    background:#fff;
+    margin:0 14px 12px;
+    border-radius:18px;
+}
+
+.play-card{
+    min-height:176px;
+    padding:18px 16px;
+    position:relative;
+}
+
+.play-heading{
+    color:#999;
+    font-size:16px;
+    margin-bottom:18px;
+}
+
+.play-content{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.play-icon{
+    width:53px;
+    height:53px;
+    border:3px solid #252525;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:27px;
+    flex-shrink:0;
+}
+
+.play-title{
+    font-size:17px;
+    font-weight:700;
+    line-height:1.3;
+}
+
+.play-button{
+    margin-top:11px;
+    padding:8px 17px;
+    border:0;
+    border-radius:7px;
+    background:#eee;
+    font-weight:600;
+    text-decoration:underline;
+}
+
+.close{
+    position:absolute;
+    top:18px;
+    right:15px;
+    border:0;
+    background:transparent;
+    font-size:28px;
+    color:#999;
+}
+
+/* TWO CARDS */
+
+.two-column{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    padding:0 14px 12px;
+}
+
+.column-card{
+    background:#fff;
+    border-radius:18px;
+    min-height:252px;
+    padding:17px;
+}
+
+.small-title{
+    font-size:16px;
+    color:#999;
+    margin-bottom:15px;
+}
+
+/* CRYPTO LOGOS */
+
+.crypto-pair{
+    display:flex;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.crypto-logo{
+    width:31px;
+    height:31px;
+    object-fit:contain;
+}
+
+.crypto-logo.overlap{
+    margin-left:-6px;
+}
+
+/* USD */
+
+.usd-logo{
+    width:31px;
+    height:31px;
+    border-radius:50%;
+    background:#111;
+    color:#fff;
+    border:2px solid #fff;
+    margin-left:-6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+}
+
+/* FIAT */
+
+.buy{
+    color:#20b985;
+    font-size:14px;
+    margin-bottom:9px;
+}
+
+.wallet-name{
+    font-size:17px;
+    font-weight:600;
+}
+
+.wallet-icon{
+    margin-top:27px;
+    width:26px;
+    height:20px;
+    border:2px solid #333;
+    border-radius:4px;
+    opacity:.45;
+    position:relative;
+}
+
+.wallet-icon:after{
+    content:"";
+    position:absolute;
+    width:9px;
+    height:5px;
+    border:2px solid #333;
+    border-radius:2px;
+    right:-2px;
+    top:5px;
+}
+
+/* RECURRING */
+
+.recurring{
+    position:relative;
+}
+
+.recurring-header{
+    display:flex;
+    justify-content:space-between;
+    color:#999;
+    font-size:16px;
+}
+
+.arrow{
+    font-size:26px;
+    line-height:16px;
+}
+
+.btc-plan{
+    margin-top:29px;
+}
+
+.btc-plan-title{
+    font-size:15px;
+    line-height:1.4;
+    font-weight:600;
+}
+
+.recommend{
+    display:inline-block;
+    margin-top:14px;
+    padding:5px 8px;
+    background:#fff5cf;
+    color:#d7b300;
+    border-radius:5px;
+    font-size:10px;
+    font-weight:600;
+}
+
+.roi{
+    margin-top:10px;
+}
+
+.roi-value{
+    font-size:20px;
+    color:#e54c62;
+    font-weight:700;
+}
+
+.roi-label{
+    color:#aaa;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.btc-logo{
+    position:absolute;
+    width:37px;
+    height:37px;
+    right:16px;
+    bottom:17px;
+    object-fit:contain;
+}
+
+/* EARN RECEIVE */
+
+.bottom-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    padding:0 14px 15px;
+}
+
+.info-card{
+    background:#fff;
+    border-radius:18px;
+    min-height:170px;
+    padding:17px;
+}
+
+.info-header{
+    display:flex;
+    justify-content:space-between;
+    color:#999;
+    font-size:16px;
+    margin-bottom:23px;
+}
+
+.eth-row{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.eth-logo{
+    width:43px;
+    height:43px;
+    object-fit:contain;
+}
+
+.coin-name{
+    font-size:16px;
+    font-weight:600;
+}
+
+.apr{
+    color:#999;
+    font-size:13px;
+    margin-top:4px;
+}
+
+.receive-title{
+    font-size:15px;
+    line-height:1.4;
+    font-weight:600;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+    height:112px;
+    background:#fff;
+    border-top:1px solid #eee;
+    padding-top:10px;
+}
+
+.feed-tabs{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:0 8px 11px;
+}
+
+.feed-tab{
+    border:0;
+    background:transparent;
+    color:#777;
+    font-size:14px;
+}
+
+.feed-tab.active{
+    color:#111;
+    font-weight:600;
+    text-decoration:underline;
+}
+
+.bottom-icons{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    height:59px;
+}
+
+.bottom-item{
+    border:0;
+    background:transparent;
+    color:#555;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:11px;
+}
+
+.bottom-item.active{
+    background:#ededed;
+    border-radius:10px;
+    margin:0 4px;
+    color:#111;
+    font-weight:600;
+}
+
+.bottom-logo{
+    width:25px;
+    height:25px;
+    object-fit:contain;
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    body{
+        background:#fff;
+    }
+
+    .phone-container{
+        width:100%;
+        height:100vh;
+        margin:0;
+        border:0;
+        border-radius:0;
+        box-shadow:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone-container">
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+
+        <span>8:33</span>
+
+        <div class="status-right">
+
+            <div class="signal">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <span>Wi-Fi</span>
+            <span>▰</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+    <div class="main-content">
+
+        <!-- HEADER -->
+        <div class="header">
+
+            <div class="header-left">
+
+                <button class="header-btn">
+                    <div class="menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+
+                <button class="header-btn">
+                    <div class="headphone"></div>
+                </button>
+
+            </div>
+
+
+            <div class="nav-tabs">
+
+                <button class="nav-tab active">
+                    Exchange
+                </button>
+
+                <button class="nav-tab">
+                    Wallet
+                </button>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <!-- OFFICIAL BINANCE PNG -->
+                <button class="header-btn">
+                    <img
+                        class="binance-logo"
+                        src="https://bin.bnbstatic.com/static/images/common/logo.png"
+                        alt="Binance"
+                    >
+                </button>
+
+                <button class="header-btn notification">
+
+                    <span style="font-size:27px;">
+                        ☷
+                    </span>
+
+                    <span class="badge">
+                        7
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="search-container">
+
+            <div class="search-bar">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <span class="fire">
+                    🔥
+                </span>
+
+                <input
+                    class="search-input"
+                    value="TRUMP top gainer"
+                    readonly
+                >
+
+                <span class="scan">
+                    ⌗
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- VALUE -->
+        <div class="value-section">
+
+            <div>
+
+                <span class="value-label">
+                    Est. Total Value (USDT)
+                </span>
+
+                <span class="value-arrow">
+                    ⌄
+                </span>
+
+            </div>
+
+            <button class="add-funds">
+                Add Funds
+            </button>
+
+        </div>
+
+
+        <!-- QUICK ACTIONS -->
+        <div class="quick-actions">
+
+            <button class="action">
+
+                <div class="action-box">
+
+                    <svg
+                        class="action-svg"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        stroke="#222"
+                        stroke-width="1.8"
+                    >
+                        <path d="M10 15h20v18H10z"/>
+                        <path d="M14 15c0-5 2-8 6-8s6 3 6 8"/>
+                        <circle
+                            cx="20"
+                            cy="22"
+                            r="3"
+                            fill="#f0b90b"
+                            stroke="none"
+                        />
+                    </svg>
+
+                </div>
+
+                <span>Earn</span>
+
+            </button>
+
+
+            <button class="action">
+
+                <div class="action-box">
+
+                    <svg
+                        class="action-svg"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        stroke="#222"
+                        stroke-width="1.8"
+                    >
+                        <rect x="7" y="9"
+                              width="26"
+                              height="25"
+                              rx="2"/>
+                        <path d="M7 16h26"/>
+                        <path d="M13 5v8"/>
+                        <path d="M27 5v8"/>
+                        <text
+                            x="16"
+                            y="29"
+                            font-size="12"
+                            fill="#f0b90b"
+                            stroke="none"
+                        >a</text>
+                    </svg>
+
+                </div>
+
+                <span>Alpha Events</span>
+
+            </button>
+
+
+            <button class="action">
+
+                <div class="action-box">
+
+                    <svg
+                        class="action-svg"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        stroke="#222"
+                        stroke-width="1.8"
+                    >
+                        <path d="M5 14h30v16H5z"/>
+                        <text
+                            x="16"
+                            y="26"
+                            font-size="11"
+                            fill="#f0b90b"
+                            stroke="none"
+                        >★</text>
+                    </svg>
+
+                </div>
+
+                <span>Rewards Hub</span>
+
+            </button>
+
+
+            <button class="action">
+
+                <div class="action-box">
+
+                    <svg
+                        class="action-svg"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        stroke="#222"
+                        stroke-width="1.8"
+                    >
+                        <rect x="6" y="6"
+                              width="10"
+                              height="10"/>
+                        <rect x="24" y="6"
+                              width="10"
+                              height="10"/>
+                        <rect x="6" y="24"
+                              width="10"
+                              height="10"/>
+                        <circle
+                            cx="29"
+                            cy="29"
+                            r="5"
+                            fill="#f0b90b"
+                            stroke="none"
+                        />
+                    </svg>
+
+                </div>
+
+                <span>More</span>
+
+            </button>
+
+        </div>
+
+
+        <!-- PLAY CARD -->
+        <div class="card play-card">
+
+            <button class="close">
+                ×
+            </button>
+
+            <div class="play-heading">
+                Play &amp; Predict
+            </div>
+
+            <div class="play-content">
+
+                <div class="play-icon">
+                    ♠
+                </div>
+
+                <div>
+
+                    <div class="play-title">
+                        $3,000,000–Play igaming,<br>
+                        Predict Sports
+                    </div>
+
+                    <button class="play-button">
+                        Play!
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- USDT / RECURRING -->
+        <div class="two-column">
+
+            <!-- USDT / USD -->
+            <div class="column-card">
+
+                <div class="small-title">
+                    USDT / USD
+                </div>
+
+                <div class="crypto-pair">
+
+                    <img
+                        class="crypto-logo"
+                        src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@master/128/color/usdt.png"
+                        alt="Tether USDT"
+                    >
+
+                    <div class="usd-logo">
+                        $
+                    </div>
+
+                </div>
+
+                <div class="buy">
+                    Buy
+                </div>
+
+                <div class="wallet-name">
+                    Fiat wallet
+                </div>
+
+                <div class="wallet-icon"></div>
+
+            </div>
+
+
+            <!-- RECURRING -->
+            <div class="column-card recurring">
+
+                <div class="recurring-header">
+
+                    <span>
+                        Recurring Plan
+                    </span>
+
+                    <span class="arrow">
+                        ›
+                    </span>
+
+                </div>
+
+                <div class="btc-plan">
+
+                    <div class="btc-plan-title">
+                        Create Your First BTC<br>
+                        Recurring Plan
+                    </div>
+
+                    <span class="recommend">
+                        Recommend
+                    </span>
+
+                    <div class="roi">
+
+                        <div class="roi-value">
+                            -8.54%
+                        </div>
+
+                        <div class="roi-label">
+                            1Y ROI
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <img
+                    class="btc-logo"
+                    src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@master/128/color/btc.png"
+                    alt="Bitcoin"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- EARN / RECEIVE -->
+        <div class="bottom-cards">
+
+            <div class="info-card">
+
+                <div class="info-header">
+
+                    <span>
+                        Earn
+                    </span>
+
+                    <span>
+                        ›
+                    </span>
+
+                </div>
+
+                <div class="eth-row">
+
+                    <img
+                        class="eth-logo"
+                        src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@master/128/color/eth.png"
+                        alt="Ethereum"
+                    >
+
+                    <div>
+
+                        <div class="coin-name">
+                            ETH
+                        </div>
+
+                        <div class="apr">
+                            APR: 1.9%
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-header">
+
+                    <span>
+                        Receive
+                    </span>
+
+                    <span>
+                        ›
+                    </span>
+
+                </div>
+
+                <div class="receive-title">
+                    Receive Funds from<br>
+                    Binance User
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="height:25px;"></div>
+
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+    <div class="bottom-nav">
+
+        <div class="feed-tabs">
+
+            <button class="feed-tab active">
+                Discover
+            </button>
+
+            <button class="feed-tab">
+                Following
+            </button>
+
+            <button class="feed-tab">
+                Announcement
+            </button>
+
+            <button class="feed-tab">
+                Live
+            </button>
+
+            <span style="color:#888;">
+                ⌃
+            </span>
+
+        </div>
+
+
+        <div class="bottom-icons">
+
+            <button class="bottom-item active">
+
+                <!-- OFFICIAL BINANCE PNG -->
+                <img
+                    class="bottom-logo"
+                    src="https://bin.bnbstatic.com/static/images/common/logo.png"
+                    alt="Binance"
+                >
+
+                <span>
+                    Home
+                </span>
+
+            </button>
+
+
+            <button class="bottom-item">
+
+                <span style="font-size:25px;">
+                    ⌁
+                </span>
+
+                <span>
+                    Markets
+                </span>
+
+            </button>
+
+
+            <button class="bottom-item">
+
+                <span style="font-size:25px;">
+                    ↔
+                </span>
+
+                <span>
+                    Trade
+                </span>
+
+            </button>
+
+
+            <button class="bottom-item">
+
+                <span style="font-size:25px;">
+                    ▤
+                </span>
+
+                <span>
+                    Futures
+                </span>
+
+            </button>
+
+
+            <button class="bottom-item">
+
+                <span style="font-size:25px;">
+                    ▣
+                </span>
+
+                <span>
+                    Assets
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* EXCHANGE / WALLET */
+
+document.querySelectorAll(".nav-tab").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        document
+        .querySelectorAll(".nav-tab")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+    });
+
+});
+
+
+/* DISCOVER TABS */
+
+document.querySelectorAll(".feed-tab").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        document
+        .querySelectorAll(".feed-tab")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+    });
+
+});
+
+
+/* BOTTOM NAV */
+
+document.querySelectorAll(".bottom-item").forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        document
+        .querySelectorAll(".bottom-item")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+    });
+
+});
+
+
+/* CLOSE PLAY CARD */
+
+document.querySelector(".close").addEventListener("click",()=>{
+
+    document.querySelector(".play-card").style.display="none";
+
+});
+
+
+/* ADD FUNDS */
+
+document.querySelector(".add-funds").addEventListener("click",()=>{
+
+    alert("Add Funds selected");
+
+});
+
+</script>
+
+</body>
+  </html>
